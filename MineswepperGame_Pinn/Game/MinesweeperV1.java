@@ -1,4 +1,3 @@
-
 /**
  * Write a description of class MinesweeperV1 here.
  *
@@ -32,17 +31,25 @@ public class MinesweeperV1
             board[x][y] = "x";
         }
         // print the oard out
-        String[] coor= {"A B C D E F G H I J"};
+        String[] coor= {"A", "B", "C", "D", "E", "F", "G", "H", "I", "J"};
         System.out.println("+ 1 2 3 4 5 6 7 8 9");
         for  (int x=0; x<10; x++){
+            System.out.print(coor[x] + " " );
             for (int y=0; y<10; y++){
-                System.out.print(board[x][y] + " ");
+                //if there is a bomb re place with "o".
+                if (board[x][y].equals("x")){
+                    System.out.print("o ");
+                }
+                else {
+                    System.out.print(board[x][y] + " ");
+                }
             }
+            System.out.println();
         }
         
     }
     public static void main(String[] atgs){
-        //print the table out
+        tableAndBomb();
  
     }
 }
