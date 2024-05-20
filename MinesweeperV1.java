@@ -65,9 +65,11 @@ public class MinesweeperV1
                 }
             }
          }
-        // print the board out
+    }
+    //print thetable out
+    static void printTable(){
         String[] coor= {" ", "A", "B", "C", "D", "E", "F", "G", "H", "I", "J", " "};
-        System.out.println("   1 2 3 4 5 6 7 8 9 10" + "\n");
+        System.out.println(" 1 2 3 4 5 6 7 8 9 10\n");
         for  (int x=1; x<11; x++){
             System.out.print(coor[x] + "  " );
             for (int y=1; y<11; y++){
@@ -80,10 +82,37 @@ public class MinesweeperV1
                  }
              }
             System.out.println();
-        }
+        }    
     }
-    
-    public static void main(String[] atgs){
+    public static void main(String[] args){
+        Scanner kb = new Scanner(System.in);
+                
         CountBomb();
+        printTable();
+        boolean game= true;
+        
+        System.out.println("wellcome  to Minesweeper game!! \nType flage to flaged or dig to dig. \n");
+        while (game){
+            String choice = kb.nextLine();
+            if  (choice.equals("flage")){
+                System.out.println("Type in the coordinate \nfor X axis");
+                int x = kb.nextInt();
+                System.out.println("for Y axis");
+                int y = kb.nextInt();
+                board[x][y] = "🚩";
+            }else if(choice.equals("dig")){
+                System.out.println("Type in the coordinate \nfor X axis");
+                int x1 = kb.nextInt();
+                System.out.println("for Y axis");
+                int y1 = kb.nextInt();
+                if (board[x1][y1].equals("x")){
+                    game = false;
+                    System.out.println("you dig a mine you lose!");
+                }
+                board[x1][y1] = "⚒";
+            }
+            System.out.println('\u000c');
+            printTable();
+        }
     }
 }
