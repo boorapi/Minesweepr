@@ -69,7 +69,7 @@ public class MinesweeperV1
     //print thetable out
     static void printTable(){
         String[] coor= {" ", "A", "B", "C", "D", "E", "F", "G", "H", "I", "J", " "};
-        System.out.println(" 1 2 3 4 5 6 7 8 9 10\n");
+        System.out.println("   1 2 3 4 5 6 7 8 9 10\n");
         for  (int x=1; x<11; x++){
             System.out.print(coor[x] + "  " );
             for (int y=1; y<11; y++){
@@ -86,7 +86,8 @@ public class MinesweeperV1
     }
     public static void main(String[] args){
         Scanner kb = new Scanner(System.in);
-                
+        String[] coor= {" ", "A", "B", "C", "D", "E", "F", "G", "H", "I", "J", " "};
+        
         CountBomb();
         printTable();
         boolean game= true;
@@ -98,18 +99,25 @@ public class MinesweeperV1
                 System.out.println("Type in the coordinate \nfor X axis");
                 int x = kb.nextInt();
                 System.out.println("for Y axis");
-                int y = kb.nextInt();
-                board[x][y] = "🚩";
+                String y = kb.nextLine();
+                y = y.toUpperCase();
+                //get the upper case y vriable convert it in to char 
+                char Yaxis = y.charAt(0);
+                Yaxis -= 64;
+                board[x][Yaxis] = "🚩";
             }else if(choice.equals("dig")){
                 System.out.println("Type in the coordinate \nfor X axis");
                 int x1 = kb.nextInt();
                 System.out.println("for Y axis");
-                int y1 = kb.nextInt();
-                if (board[x1][y1].equals("x")){
-                    game = false;
+                String y1 = kb.nextLine();
+                y1 = y1.toUpperCase();
+                char Yaxis1= y1.charAt(0);
+                Yaxis1 -= 64;
+                if (board[x1][Yaxis1].equals("x")){
                     System.out.println("you dig a mine you lose!");
+                    game = false;
                 }
-                board[x1][y1] = "⚒";
+                board[x1][Yaxis1] = "⚒";
             }
             System.out.println('\u000c');
             printTable();
