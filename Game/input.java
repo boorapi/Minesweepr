@@ -1,3 +1,5 @@
+package Game;
+
 
 /**
  * Write a description of class input here.
@@ -19,13 +21,16 @@ public class input
             String y = kb.nextLine();
             y = y.toUpperCase();
             //get the upper case y vriable convert it in to char 
+            System.out.println(y);
             char Yaxis = y.charAt(0);
-            Yaxis -= 64;
-            System.out.println(x);
-            System.out.print(" " + Yaxis);
+            System.out.println(Yaxis+2);
+            Yaxis = Yaxis-64;
+            //System.out.println(x);
+            System.out.println(Yaxis);
         }else if(choice.equals("dig")){
             System.out.println("Type in the coordinate \nfor X axis");
             int x1 = kb.nextInt();
+            kb.nextLine();
             System.out.println("for Y axis");
             String y1 = kb.nextLine();
             y1 = y1.toUpperCase();

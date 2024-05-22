@@ -1,3 +1,5 @@
+package Game;
+
 /**
  * Write a description of class MinesweeperV1 here.
  *
@@ -98,26 +100,29 @@ public class MinesweeperV1
             if  (choice.equals("flage")){
                 System.out.println("Type in the coordinate \nfor X axis");
                 int x = kb.nextInt();
+                kb.nextLine();
                 System.out.println("for Y axis");
                 String y = kb.nextLine();
                 y = y.toUpperCase();
                 //get the upper case y vriable convert it in to char 
                 char Yaxis = y.charAt(0);
-                Yaxis -= 64;
-                board[x][Yaxis] = "🚩";
+                // Yaxis - 64 to get the correct location for y axis (A = 65 in char).
+                board[x][Yaxis-64] = "🚩";
             }else if(choice.equals("dig")){
                 System.out.println("Type in the coordinate \nfor X axis");
                 int x1 = kb.nextInt();
+                kb.nextLine();
                 System.out.println("for Y axis");
                 String y1 = kb.nextLine();
                 y1 = y1.toUpperCase();
                 char Yaxis1= y1.charAt(0);
                 Yaxis1 -= 64;
+                //If player dig bomb the game end.
                 if (board[x1][Yaxis1].equals("x")){
                     System.out.println("you dig a mine you lose!");
                     game = false;
                 }
-                board[x1][Yaxis1] = "⚒";
+                board[x1][Yaxis1-64] = "⚒";
             }
             System.out.println('\u000c');
             printTable();
