@@ -20,7 +20,7 @@ public class MinesweeperV1
                 board[x][y] = "□";
             }
         }
-        //planting bomb 10 into random grid on the board
+        //planting bomb 15 into random grid on the board
         Random random = new Random();
         // not mvp; make sure that no same locatoin  genarated.
         for (int j=0; j<15; j++){
@@ -75,57 +75,69 @@ public class MinesweeperV1
         for  (int x=1; x<11; x++){
             System.out.print(coor[x] + "  " );
             for (int y=1; y<11; y++){
-                 //if there is a bomb re place with "□".
-                 if (board[x][y].equals("x")){
-                      System.out.print("□ ");
-                 }
-                 else {
-                     System.out.print(board[x][y] + " ");
-                 }
-             }
+                //if there is a bomb re place with "□".
+                //if (board[x][y].equals("x")){
+                      //System.out.print("□ ");
+                //}
+                //else {
+                System.out.print(board[x][y] + " ");
+                //}
+            }
             System.out.println();
         }    
     }
-    public static void main(String[] args){
+    public static void main(String args[]){
         Scanner kb = new Scanner(System.in);
         String[] coor= {" ", "A", "B", "C", "D", "E", "F", "G", "H", "I", "J", " "};
-        
         CountBomb();
         printTable();
-        boolean game= true;
         
-        System.out.println("wellcome  to Minesweeper game!! \nType flage to flaged or dig to dig. \n");
+        
+        //a copy of a board in case of player undoing the flag.
+        String[][] oldboard = new String[12][12];
+        // put the value to the old board.
+        for (int x=0; x<12; x++){
+            for (int y=0; y>12; y++){
+                oldboard[x][y] = board[x][y];
+            }
+        }
+        
+        
+        boolean game = true;
+        int flag = 0;
+        System.out.println("wellcome  to Minesweeper game!!");
         while (game){
+            System.out.print("Type flag to flaged, dig to dig or undo to undo the flag: ");
             String choice = kb.nextLine();
-            if  (choice.equals("flage")){
-                System.out.println("Type in the coordinate \nfor X axis");
-                int x = kb.nextInt();
-                kb.nextLine();
-                System.out.println("for Y axis");
-                String y = kb.nextLine();
-                y = y.toUpperCase();
-                //get the upper case y vriable convert it in to char 
-                char Yaxis = y.charAt(0);
+            
+            System.out.print("Type in the coordinate \nfor X axis: ");
+            int x = kb.nextInt();
+            kb.nextLine();
+            System.out.print("for Y axis: ");
+            String y = kb.nextLine();
+            y = y.toUpperCase();
+            //get the upper case y vriable convert it in to char 
+            char Yaxis = y.charAt(0);
+            
+            if  (choice.equals("flag")){
                 // Yaxis - 64 to get the correct location for y axis (A = 65 in char).
-                board[x][Yaxis-64] = "🚩";
-            }else if(choice.equals("dig")){
-                System.out.println("Type in the coordinate \nfor X axis");
-                int x1 = kb.nextInt();
-                kb.nextLine();
-                System.out.println("for Y axis");
-                String y1 = kb.nextLine();
-                y1 = y1.toUpperCase();
-                char Yaxis1= y1.charAt(0);
-                Yaxis1 -= 64;
-                //If player dig bomb the game end.
-                if (board[x1][Yaxis1].equals("x")){
-                    System.out.println("you dig a mine you lose!");
+                board[Yaxis-64][x] = "f";
+                flag ++;
+                if (flag == 14){
                     game = false;
                 }
-                board[x1][Yaxis1-64] = "⚒";
+            }else if(choice.equals("undo")){
+                board[Yaxis-64][x] = oldboard[Yaxis-64][x];
+                flag --;
+            }else if(choice.equals("dig")){
+                if (board[Yaxis-64][x].equals("x")){
+                    game = false;
+                }
+                //board[Yaxis-64][x] = "⚒";
             }
             System.out.println('\u000c');
             printTable();
         }
+        System.out.println("you dig a mine you lose!");
     }
 }
