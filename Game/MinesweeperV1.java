@@ -12,6 +12,7 @@ import java.util.Arrays;
 public class MinesweeperV1
 {   
     static String[][] board = new String[12][12];
+    static String[][] display = new String[12][12];
     //create board with bomb planted.
     static void table(){
         //String[][] board = new String[10][10]; 
@@ -35,7 +36,7 @@ public class MinesweeperV1
         for (int x=1; x<11; x++){
             for (int y=1; y<11; y++){
                 int BombCount = 0;
-                // if that grid is not a bomb then check it.
+                // if that cell is not a bomb then check it.
                 if (board[x][y] != "x"){
                     //check the surrounding.
                     if(board[x-1][y-1].equals("x")){
@@ -68,41 +69,31 @@ public class MinesweeperV1
             }
          }
     }
-    //print thetable out
-    static void printTable(){
+    //print the display out.
+    static void printDisplay(){
         String[] coor= {" ", "A", "B", "C", "D", "E", "F", "G", "H", "I", "J", " "};
         System.out.println("   1 2 3 4 5 6 7 8 9 10\n");
         for  (int x=1; x<11; x++){
             System.out.print(coor[x] + "  " );
             for (int y=1; y<11; y++){
-                //if there is a bomb re place with "□".
-                //if (board[x][y].equals("x")){
-                      //System.out.print("□ ");
-                //}
-                //else {
-                System.out.print(board[x][y] + " ");
-                //}
+                //display[x][y] = "o";
+                System.out.print(display[x][y] + " ");
             }
             System.out.println();
         }    
     }
     public static void main(String args[]){
         Scanner kb = new Scanner(System.in);
-        String[] coor= {" ", "A", "B", "C", "D", "E", "F", "G", "H", "I", "J", " "};
         CountBomb();
-        printTable();
         
         
-        //a copy of a board in case of player undoing the flag.
-        String[][] oldboard = new String[12][12];
-        // put the value to the old board.
-        for (int x=0; x<12; x++){
-            for (int y=0; y>12; y++){
-                oldboard[x][y] = board[x][y];
+        for  (int x=1; x<11; x++){
+            for (int y=1; y<11; y++){
+                display[x][y] = "o";
             }
         }
-        
-        
+        printDisplay();
+
         boolean game = true;
         int flag = 0;
         System.out.println("wellcome  to Minesweeper game!!");
@@ -121,23 +112,26 @@ public class MinesweeperV1
             
             if  (choice.equals("flag")){
                 // Yaxis - 64 to get the correct location for y axis (A = 65 in char).
-                board[Yaxis-64][x] = "f";
+                display[Yaxis-64][x] = "f";
                 flag ++;
                 if (flag == 14){
                     game = false;
                 }
             }else if(choice.equals("undo")){
-                board[Yaxis-64][x] = oldboard[Yaxis-64][x];
                 flag --;
             }else if(choice.equals("dig")){
                 if (board[Yaxis-64][x].equals("x")){
                     game = false;
                 }
+                else{
+                    display[Yaxis-64][x] = board[Yaxis-64][x];
+                }
                 //board[Yaxis-64][x] = "⚒";
             }
             System.out.println('\u000c');
-            printTable();
+            printDisplay();
         }
-        System.out.println("you dig a mine you lose!");
+        System.out.println("You dig a bomb. You lose!!!");
+        
     }
 }
