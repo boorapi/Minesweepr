@@ -30,7 +30,7 @@ public class MinesweeperV1
             board[x][y] = "x";
         }
     }
-    // counting the bomb aroungd a grid.
+    // counting the bomb aroungd a grid and set up the table.
     static void CountBomb(){
         table ();
         for (int x=1; x<11; x++){
@@ -38,7 +38,7 @@ public class MinesweeperV1
                 int BombCount = 0;
                 // if that cell is not a bomb then check it.
                 if (board[x][y] != "x"){
-                    //check the surrounding.
+                    //top three
                     if(board[x-1][y-1].equals("x")){
                         BombCount += 1;
                     }
@@ -48,12 +48,15 @@ public class MinesweeperV1
                     if(board[x+1][y-1].equals("x")){
                         BombCount += 1;
                     }
+                    //left
                     if(board[x-1][y].equals("x")){
                         BombCount += 1;
                     }
+                    //right
                     if(board[x+1][y].equals("x")){
                         BombCount += 1;
                     }
+                    //bottom three
                     if(board[x-1][y+1].equals("x")){
                         BombCount += 1;
                     }
@@ -84,6 +87,7 @@ public class MinesweeperV1
     }
     public static void main(String args[]){
         Scanner kb = new Scanner(System.in);
+        //set up the table
         CountBomb();
         
         
@@ -118,6 +122,7 @@ public class MinesweeperV1
                     game = false;
                 }
             }else if(choice.equals("undo")){
+                display[Yaxis-64][x] = "o";
                 flag --;
             }else if(choice.equals("dig")){
                 if (board[Yaxis-64][x].equals("x")){
