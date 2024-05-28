@@ -11,61 +11,54 @@ import java.util.Random;
 import java.util.Arrays;
 public class MinesweeperV1
 {   
-    static String[][] board = new String[12][12];
-    static String[][] display = new String[12][12];
-    //create board with bomb planted.
-    static void table(){
-        //String[][] board = new String[10][10]; 
-        for  (int x=0; x<12; x++){
-            for (int y=0; y<12; y++){
-                board[x][y] = "□";
-            }
-        }
-        //planting bomb 15 into random grid on the board
+    static String[][] board = new String[10][10];
+    static String[][] display = new String[10][10];
+    
+    static void plantBomb(){
         Random random = new Random();
         // not mvp; make sure that no same locatoin  genarated.
         for (int j=0; j<15; j++){
-            int x = 1+random.nextInt(10);
-            int y = 1+random.nextInt(10);
-            board[x][y] = "x";
+            int x = random.nextInt(10);
+            int y = random.nextInt(10);
+            board[x][y] = "B";
         }
     }
-    // counting the bomb aroungd a grid and set up the table.
+    //check the status on that particular cell.
+    static int checkbomb(int x, int y){
+        //if it out of board rage return 0.
+        if ( x < 0 || x > 10 || y < 0 || y > 10){
+            return 0;
+        }
+        else if (board[x][y].equals("B")){
+            return 1;
+        }
+        else{
+            return 0;
+        }
+    }
+    
+    // set up the table.
     static void CountBomb(){
-        table ();
-        for (int x=1; x<11; x++){
-            for (int y=1; y<11; y++){
+        plantBomb();
+        //couting the surounding bomb.
+        for (int x=0; x<10; x++){
+            for (int y=0; y<10; y++){
                 int BombCount = 0;
                 // if that cell is not a bomb then check it.
                 if (board[x][y] != "x"){
                     //top three
-                    if(board[x-1][y-1].equals("x")){
-                        BombCount += 1;
-                    }
-                    if(board[x][y-1].equals("x")){
-                        BombCount += 1;
-                    }
-                    if(board[x+1][y-1].equals("x")){
-                        BombCount += 1;
-                    }
+                    BombCount += checkbomb(x-1, y-1);
+                    BombCount += checkbomb(x, y-1);
+                    BombCount += checkbomb(x+1, y-1); 
                     //left
-                    if(board[x-1][y].equals("x")){
-                        BombCount += 1;
-                    }
+                    BombCount += checkbomb(x-1, y);
                     //right
-                    if(board[x+1][y].equals("x")){
-                        BombCount += 1;
-                    }
+                    BombCount += checkbomb(x+1, y);
                     //bottom three
-                    if(board[x-1][y+1].equals("x")){
-                        BombCount += 1;
-                    }
-                    if(board[x][y+1].equals("x")){
-                        BombCount += 1;
-                    }
-                    if(board[x+1][y+1].equals("x")){
-                        BombCount += 1;
-                    }
+                    BombCount += checkbomb(x-1, y+1);
+                    BombCount += checkbomb(x, y+1);
+                    BombCount += checkbomb(x+1, y+1);
+                    
                     String BombNum = Integer.toString(BombCount);
                     board[x][y] = BombNum;
                 }
@@ -74,11 +67,11 @@ public class MinesweeperV1
     }
     //print the display out.
     static void printDisplay(){
-        String[] coor= {" ", "A", "B", "C", "D", "E", "F", "G", "H", "I", "J", " "};
+        String[] coor= {"A", "B", "C", "D", "E", "F", "G", "H", "I", "J",};
         System.out.println("   1 2 3 4 5 6 7 8 9 10\n");
-        for  (int x=1; x<11; x++){
+        for  (int x=0; x<10; x++){
             System.out.print(coor[x] + "  " );
-            for (int y=1; y<11; y++){
+            for (int y=0; y<10; y++){
                 //display[x][y] = "o";
                 System.out.print(display[x][y] + " ");
             }
@@ -91,8 +84,8 @@ public class MinesweeperV1
         CountBomb();
         
         
-        for  (int x=1; x<11; x++){
-            for (int y=1; y<11; y++){
+        for  (int x=0; x<10; x++){
+            for (int y=0; y<10; y++){
                 display[x][y] = "o";
             }
         }
@@ -113,25 +106,25 @@ public class MinesweeperV1
             y = y.toUpperCase();
             //get the upper case y vriable convert it in to char 
             char Yaxis = y.charAt(0);
+            x -= 1;
             
             if  (choice.equals("flag")){
                 // Yaxis - 64 to get the correct location for y axis (A = 65 in char).
-                display[Yaxis-64][x] = "f";
+                display[Yaxis-65][x] = "f";
                 flag ++;
                 if (flag == 14){
                     game = false;
                 }
             }else if(choice.equals("undo")){
-                display[Yaxis-64][x] = "o";
+                display[Yaxis-65][x] = "o";
                 flag --;
             }else if(choice.equals("dig")){
-                if (board[Yaxis-64][x].equals("x")){
+                if (board[Yaxis-65][x].equals("B")){
                     game = false;
                 }
                 else{
-                    display[Yaxis-64][x] = board[Yaxis-64][x];
+                    display[Yaxis-65][x] = board[Yaxis-65][x];
                 }
-                //board[Yaxis-64][x] = "⚒";
             }
             System.out.println('\u000c');
             printDisplay();

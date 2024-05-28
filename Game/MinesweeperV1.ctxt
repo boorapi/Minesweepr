@@ -1,11 +1,13 @@
 #BlueJ class context
 comment0.target=MinesweeperV1
 comment1.params=
-comment1.target=void\ table()
-comment2.params=
-comment2.target=void\ CountBomb()
+comment1.target=void\ plantBomb()
+comment2.params=x\ y
+comment2.target=int\ checkbomb(int,\ int)
 comment3.params=
-comment3.target=void\ printDisplay()
-comment4.params=args
-comment4.target=void\ main(java.lang.String[])
-numComments=5
+comment3.target=void\ CountBomb()
+comment4.params=
+comment4.target=void\ printDisplay()
+comment5.params=args
+comment5.target=void\ main(java.lang.String[])
+numComments=6
