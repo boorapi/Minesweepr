@@ -22,7 +22,7 @@ public class MinesweeperV1
             }
         }
         // not mvp; make sure that no same locatoin  genarated.
-        for (int j=0; j<11; j++){
+        for (int j=0; j<10; j++){
             int x = random.nextInt(10);
             int y = random.nextInt(10);
             board[x][y] = "b";
@@ -46,7 +46,7 @@ public class MinesweeperV1
     static void CheckBomb(int x, int y){
         //couting the surounding bomb.
         int BombCount = 0;
-        
+        //                                             a base case
         if ( x < 0 || x >= 10 || y < 0 || y >= 10 || board[x][y].equals("0")){
             return;
         }
@@ -72,7 +72,8 @@ public class MinesweeperV1
         }
         else {
             board[x][y] = "0";    
-            //recursive call to check surounding zero.
+            //recursive call to check surounding if it zero.
+            
             CheckBomb(x-1, y-1);
             CheckBomb(x, y-1);
             CheckBomb(x+1, y-1);
@@ -92,10 +93,37 @@ public class MinesweeperV1
         for  (int x=0; x<10; x++){
             System.out.print(coor[x] + "  " );
             for (int y=0; y<10; y++){
-        System.out.print(board[x][y] + " ");
+                System.out.print(display[x][y] + " ");
             }
             System.out.println();
         }    
+    }
+    //transfer data from board to display.
+    static int reveal(String command){
+        // to keep track of how many bomb did not been flaged.
+        int bombleft = 0;
+        for  (int x=0; x<10; x++){
+            for (int y=0; y<10; y++){
+                if (command.equals("revealed")){
+                    //if board x, y still did not reviewed  or it contain a bomb or the flag don't reviewed.
+                    if (!board[x][y].equals("o") && !board[x][y].equals("b") && !display[x][y].equals("f")){
+                        display[x][y] = board[x][y];
+                    }
+                }
+                else if (command.equals("check")){
+                    // if there is flag but same position on board does not contain bomb
+                    if (display[x][y].equals("f") && !board[x][y].equals("b")){
+                        bombleft ++;
+                    }
+                }
+                else if (command.equals("showbomb")){
+                    if (board[x][y].equals("b")){
+                        display[x][y] = board[x][y];
+                    }
+                }
+            }
+        }
+        return bombleft;
     }
     //error checking for int 1 - 10 for x axis.
     static int numCheck(String msg){
@@ -103,7 +131,7 @@ public class MinesweeperV1
         System.out.print(msg + " For X axis: ");
         while(!kb.hasNextInt()){
             kb.nextLine();
-            System.out.print("Input error! " + msg);
+            System.out.print("Input error! " + msg);       
         }
         return(kb.nextInt());
     }
@@ -123,7 +151,7 @@ public class MinesweeperV1
     public static void main(String[] args){
         Scanner kb = new Scanner(System.in);
         
-        //set up the table and the display.
+        //set up the display and count the bomb in the table.
         plantBomb();
         int bombAmount = 0;
         for  (int x=0; x<10; x++){
@@ -142,7 +170,7 @@ public class MinesweeperV1
         while (game){
             System.out.println('\u000c');
             printDisplay();
-            
+            System.out.println("  You got " + bombAmount + " 🎌 left.\n");
             System.out.println("What would you like to do? ");
             
             //get and error checking the command input.
@@ -166,23 +194,39 @@ public class MinesweeperV1
             //get the upper case y vriable convert it in to char 
             char Yaxis = y.charAt(0);
             
-             if (choice.equals("flag")){
-                // Yaxis - 64 to get the correct location for y axis (A = 65 in char).
-                display[Yaxis-65][x] = "f";
-                flag ++;
-                if (flag == bombAmount){
-                    game = false;
+            if (choice.equals("flag")){
+                if (!display[Yaxis-65][x].equals("o")){
+                    // Do nothing for now because player can not place flag at a cell that already been open or flaged.
+                }
+                else{
+                    display[Yaxis-65][x] = "f";
+                    bombAmount --;
+                    if (bombAmount == 0){
+                        int numleft = reveal("check");
+                        if ( numleft > 0){
+                            System.out.println("You did not clear the mine. There is " + numleft + " mine that you place the flag wrong\n You lose. 💥💥");
+                            game = false;
+                        }
+                        else{
+                            System.out.println("Great job! you have clear all the mine\n you win.🙂");
+                            game = false;
+                        }
+                    }
                 }
             }else if(choice.equals("undo")){
                 display[Yaxis-65][x] = "o";
-                flag --;
+                bombAmount ++;
             }else if(choice.equals("dig")){
                 if (board[Yaxis-65][x].equals("b")){
-                    System.out.println("You dig a bomb. You lose!!!");
+                    System.out.println("You dig a bomb. You lose!!!💥💥");
                     game = false;
                 }
+                else if (board[Yaxis-65][x].equals("f")){
+                    System.out.println("You have is cell flaged please remove the flag before you dig the cell.");
+                }
                 else{
-                    CheckBomb(x, Yaxis-65);
+                    CheckBomb(Yaxis-65, x);
+                    reveal("revealed");
                 }
             }
         }
