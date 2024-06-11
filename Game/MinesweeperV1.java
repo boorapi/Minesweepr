@@ -87,7 +87,7 @@ public class MinesweeperV1
         }
     }
     //print the display out.
-    static void printDisplay(String error){
+    static void printDisplay(){
         String[] coor= {"A", "B", "C", "D", "E", "F", "G", "H", "I", "J",};
         System.out.println("   1 2 3 4 5 6 7 8 9 10\n");
         for  (int x=0; x<10; x++){
@@ -97,9 +97,6 @@ public class MinesweeperV1
             }
             System.out.println();
         }   
-        if (error.length() > 0 ){
-                System.out.println(error);
-            }
     }
     //transfer data from board to display.
     static int reveal(String command){
@@ -153,7 +150,6 @@ public class MinesweeperV1
     
     public static void main(String[] args){
         Scanner kb = new Scanner(System.in);
-        String error = "";
         //set up the display and count the bomb in the table.
         plantBomb();
         int bombAmount = 0;
@@ -165,15 +161,14 @@ public class MinesweeperV1
                 }
             }
         }
-        printDisplay(error);
+        printDisplay();
         
         boolean game = true;
         int flag = 0;
         System.out.println("wellcome  to Minesweeper game!!");
         while (game){
             System.out.println('\u000c');
-            printDisplay(error);
-            error = "";
+            printDisplay();
             System.out.println("  You got " + bombAmount + " 🎌 left.\n");
             System.out.println("What would you like to do? ");
             
@@ -200,8 +195,8 @@ public class MinesweeperV1
             
             if (choice.equals("flag")){
                 if (!display[Yaxis-65][x].equals("o")){
-                    // Do nothing for now because player can not place flag at a cell that already been open or flaged.
-                    error = "You can not put a flag here.";
+                    System.out.println("You can't place flag here. Hit enetr to continue.");
+                    kb.nextLine();
                 }
                 else{
                     display[Yaxis-65][x] = "F";
@@ -219,15 +214,22 @@ public class MinesweeperV1
                     }
                 }
             }else if(choice.equals("undo")){
-                display[Yaxis-65][x] = "o";
-                bombAmount ++;
+                if (!display[Yaxis-65][x].equals("F")){
+                    System.out.println("You can not undo this cell because here is no flag here.\nHit enter to continue.");
+                    kb.nextLine();
+                }
+                else {
+                    display[Yaxis-65][x] = "o";
+                    bombAmount ++;
+                }
             }else if(choice.equals("dig")){
                 if (board[Yaxis-65][x].equals("b")){
                     System.out.println("You dig a bomb. You lose!!!💥💥");
                     game = false;
                 }
-                else if (board[Yaxis-65][x].equals("f")){
-                    System.out.println("You have is cell flaged please remove the flag before you dig the cell.");
+                else if (board[Yaxis-65][x].equals("F")){
+                    System.out.println("You have is cell flaged please remove the flag before you dig the cell.\nHit enter to comtinue.");
+                    kb.nextLine();
                 }
                 else{
                     CheckBomb(Yaxis-65, x);
