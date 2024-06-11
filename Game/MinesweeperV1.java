@@ -87,7 +87,7 @@ public class MinesweeperV1
         }
     }
     //print the display out.
-    static void printDisplay(){
+    static void printDisplay(String error){
         String[] coor= {"A", "B", "C", "D", "E", "F", "G", "H", "I", "J",};
         System.out.println("   1 2 3 4 5 6 7 8 9 10\n");
         for  (int x=0; x<10; x++){
@@ -96,7 +96,10 @@ public class MinesweeperV1
                 System.out.print(display[x][y] + " ");
             }
             System.out.println();
-        }    
+        }   
+        if (error.length() > 0 ){
+                System.out.println(error);
+            }
     }
     //transfer data from board to display.
     static int reveal(String command){
@@ -150,7 +153,7 @@ public class MinesweeperV1
     
     public static void main(String[] args){
         Scanner kb = new Scanner(System.in);
-        
+        String error = "";
         //set up the display and count the bomb in the table.
         plantBomb();
         int bombAmount = 0;
@@ -162,14 +165,15 @@ public class MinesweeperV1
                 }
             }
         }
-        printDisplay();
+        printDisplay(error);
         
         boolean game = true;
         int flag = 0;
         System.out.println("wellcome  to Minesweeper game!!");
         while (game){
             System.out.println('\u000c');
-            printDisplay();
+            printDisplay(error);
+            error = "";
             System.out.println("  You got " + bombAmount + " 🎌 left.\n");
             System.out.println("What would you like to do? ");
             
@@ -197,9 +201,10 @@ public class MinesweeperV1
             if (choice.equals("flag")){
                 if (!display[Yaxis-65][x].equals("o")){
                     // Do nothing for now because player can not place flag at a cell that already been open or flaged.
+                    error = "You can not put a flag here.";
                 }
                 else{
-                    display[Yaxis-65][x] = "f";
+                    display[Yaxis-65][x] = "F";
                     bombAmount --;
                     if (bombAmount == 0){
                         int numleft = reveal("check");
