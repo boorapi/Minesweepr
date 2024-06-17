@@ -112,17 +112,17 @@ public class MinesweeperV1
                 }
                 else if (command.equals("check")){
                     // if there is flag but same position on board does not contain bomb
-                    if (display[x][y].equals("f") && !board[x][y].equals("b")){
+                    if (display[x][y].equals("F") && !board[x][y].equals("b")){
                         bombleft ++;
                     }
                 }
-                else if (command.equals("showbomb")){
-                    if (board[x][y].equals("b")){
-                        display[x][y] = board[x][y];
-                    }
+                //else if (command.equals("showbomb")){
+                    //if (board[x][y].equals("b")){
+                        //display[x][y] = board[x][y];
+                    //}
                 }
             }
-        }
+        
         return bombleft;
     }
     //error checking for int 1 - 10 for x axis.
