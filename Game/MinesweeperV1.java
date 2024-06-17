@@ -223,13 +223,13 @@ public class MinesweeperV1
                     bombAmount ++;
                 }
             }else if(choice.equals("dig")){
-                if (board[Yaxis-65][x].equals("b")){
-                    System.out.println("You dig a bomb. You lose!!!💥💥");
-                    game = false;
-                }
-                else if (display[Yaxis-65][x].equals("F")){
+                if (display[Yaxis-65][x].equals("F")){
                     System.out.println("You have is cell flaged please remove the flag before you dig the cell.\nHit enter to comtinue.");
                     kb.nextLine();
+                }
+                else if (board[Yaxis-65][x].equals("b")){
+                    System.out.println("You dig a bomb. You lose!!!💥💥");
+                    game = false;
                 }
                 else{
                     CheckBomb(Yaxis-65, x);
