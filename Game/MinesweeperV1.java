@@ -41,7 +41,6 @@ public class MinesweeperV1
             return 0;
         }
     }
-    
     // set up the table.
     static void CheckBomb(int x, int y){
         //couting the surounding bomb.
@@ -174,7 +173,7 @@ public class MinesweeperV1
             
             //get and error checking the command input.
             String[] commands = {"flag", "undo", "dig"};
-            String choice = comCheck(commands, "Pleas type flag to flaged, dig to dig or undo to undo the flag: ");
+            String choice = comCheck(commands, "Pleas type flag to flaged,dig to dig or undo to undo the flag: ");
             
             System.out.println("Type in the coordinate.");
             
