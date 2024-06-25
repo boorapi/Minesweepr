@@ -2,7 +2,7 @@
 comment0.target=MinesweeperV1
 comment1.params=
 comment1.target=void\ plantBomb()
-comment1.text=\ \r\n\ This\ method\ asign\ variable\ "o"\ to\ a\ epmty\ board\ array\r\n\ The\ secound\ part\ the\ method\ genagrate\ random\ coordinate\ for\ x\ and\ y\r\n\ then\ chage\ the\ cell\ to\ "b".\ It\ run\ 10\ times\ for\ 10\ bombs\r\n
+comment1.text=\r\n\ This\ method\ asign\ variable\ "o"\ to\ a\ epmty\ board\ array\r\n\ The\ secound\ part\ the\ method\ genagrate\ random\ coordinate\ for\ x\ and\ y\r\n\ then\ chage\ the\ cell\ to\ "b".\ It\ run\ 10\ times\ for\ 10\ bombs\r\n
 comment2.params=x\ y
 comment2.target=int\ CheckBomb(int,\ int)
 comment2.text=\r\n\ This\ method\ chekc\ if\ a\ cell\ contian\ a\ bomb\r\n\ It\ yakes\ coordiante\ x\ and\ y\ as\ in\ int\ and\ check\ that\ cell\r\n\ If\ there\ is\ a\ bomb\ it\ will\ return\ 1,\ else\ return\ 0.\r\n

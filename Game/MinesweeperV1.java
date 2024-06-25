@@ -14,7 +14,7 @@ public class MinesweeperV1
     static int  BoardLength = 10;
     static String[][] board = new String[BoardLength][BoardLength];
     static String[][] display = new String[BoardLength][BoardLength];
-    /* 
+    /**
      * This method asign variable "o" to a epmty board array
      * The secound part the method genagrate random coordinate for x and y
      * then chage the cell to "b". It run 10 times for 10 bombs
@@ -179,7 +179,7 @@ public class MinesweeperV1
             
             //get and error checking the command input.
             String[] commands = {"flag", "undo", "dig"};
-            String choice = comCheck(commands, "Pleas type flag to flaged,dig to dig or undo to undo the flag: ");
+            String choice = comCheck(commands, "Please type flag to flaged,dig to dig or undo to undo the flag: ");
             
             System.out.println("Type in the coordinate.");
             
