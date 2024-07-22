@@ -1,0 +1,27 @@
+#BlueJ class context
+comment0.target=Minesweeper
+comment1.params=
+comment1.target=void\ plantBomb()
+comment1.text=\r\n\ This\ method\ asign\ variable\ "o"\ to\ a\ epmty\ board\ array\r\n\ The\ secound\ part\ the\ method\ genagrate\ random\ coordinate\ for\ x\ and\ y\r\n\ then\ chage\ the\ cell\ to\ "b".\ It\ run\ 10\ times\ for\ 10\ bombs\r\n
+comment2.params=x\ y
+comment2.target=int\ checkBomb(int,\ int)
+comment2.text=\r\n\ This\ method\ chekc\ if\ a\ cell\ contian\ a\ bomb\r\n\ It\ takes\ coordiante\ x\ and\ y\ as\ in\ int\ and\ check\ that\ cell\r\n\ If\ there\ is\ a\ bomb\ it\ will\ return\ 1,\ else\ return\ 0.\r\n
+comment3.params=x\ y
+comment3.target=void\ countBomb(int,\ int)
+comment3.text=\r\nThis\ method\ count\ how\ many\ bomb\ a\ around\ a\ cell\ \r\nThe\ argument\ will\ be\ the\ x\ and\ y\ axis\ od\ the\ cell\r\nIf\ the\ cell\ is\ not\ 0\ the\ amount\ of\ bomb\ will\ be\ assign\ to\ the\ board\r\nIf\ the\ cell\ is\ 0\ the\ method\ will\ run\ a\ recurcive\ call\ and\ assing\ the\ value\ to\ the\ baord\r\n
+comment4.params=
+comment4.target=void\ printDisplay()
+comment4.text=\r\n\ This\ method\ loop\ through\ display\ array\ and\ print\ it\ out\r\n
+comment5.params=command
+comment5.target=int\ reveal(java.lang.String)
+comment5.text=\r\n\ This\ method\ is\ for\ reveal\ the\ display\ and\ check\ the\ win\ loes\ condition\r\n\ It\ takes\ a\ command\ "revealed"\ or\ "check"\r\n\ revealed\ will\ chage\ display\ of\ o\ to\ number\ if\ the\ board\ is\ already\ been\ revealed.\r\n\ check\ will\ loop\ through\ and\ check\ if\ flag\ is\ at\ a\ right\ position.\ If\ the\ flag\ is\ at\ wrong\ position\ bombLeft\ will\ increas\r\n\ return\ bomb\ left.\r\n
+comment6.params=msg
+comment6.target=int\ numCheck(java.lang.String)
+comment6.text=\r\n\ This\ method\ will\ do\ error\ ckecking\ to\ x\ axis\ input.\ It\ will\ loop\ through\ until\ gets\ a\ valid\ input.\r\n\ The\ argument\ is\ the\ massage\ that\ we\ want\ to\ tell\ the\ user.\r\n\ return\ the\ valid\ input\r\n
+comment7.params=commands\ msg
+comment7.target=java.lang.String\ comCheck(java.lang.String[],\ java.lang.String)
+comment7.text=\r\n\ This\ method\ will\ do\ error\ checking\ for\ the\ command\ and\ y\ axis.\ It\ will\ loop\ through\ until\ gets\ a\ valid\ input.\r\n\ The\ argument\ is\ the\ massage\ that\ we\ want\ to\ tell\ the\ user\ and\ the\ arrays\ of\ the\ valid\ input\r\n\ return\ the\ valid\ input\r\n
+comment8.params=args
+comment8.target=void\ main(java.lang.String[])
+comment8.text=\r\n\ This\ is\ the\ main\ method\ that\ run\ every\ thing.\r\n\ It\ contian\ all\ the\ above\ method\ inside\ it.\r\n
+numComments=9
